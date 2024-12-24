@@ -9,7 +9,7 @@ const TodoItem = ({data, edit}) => {
         <p className='text-[#FFF]'>{data.text}</p>
         <button
           onClick={() => {
-            edit(text, data.id);
+            edit(data.id);
           }}>
           засах
         </button>
