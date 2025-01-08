@@ -1,22 +1,40 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import TodoItem from "./todoItem";
 import Todofrom from "./todofrom";
 
 // todo жагсаалт
 const TodoWrapper = () => {
   const [TodoList, setTodoList] = useState([]);
+  useEffect(() => {
+    fetch("https://dummyjson.com/todos?limit=10")
+      .then((res) => res.json())
+      .then((data) => setTodoList([...TodoList, ...data.todos]));
+  }, []);
+  console.log(TodoList);
   //  компонентийн төлөвийг шинчлэх зориолго той функц
   const AddTodo = (text) => {
+    fetch("https://dummyjson.com/todos/add", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        todo: text,
+        completed: false,
+        userId: 5,
+      }),
+    })
+      .then((res) => res.json())
+      .then(console.log);
+
     // хэрэглэгчээс теёт аваад түүнийг обедтийн техт болгоод төлөв дээр хадгалж өгнө
-    setTodoList([
-      // төлөвийг задлаад доторх өгөгдөл дээр шинэ өгөгдөл нэмээд төлөвийг шинэчилнэ
-      ...TodoList,
-      {
-        id: Math.random().toString(),
-        text: text,
-        isEditing: false,
-      },
-    ]);
+    // setTodoList([
+    // төлөвийг задлаад доторх өгөгдөл дээр шинэ өгөгдөл нэмээд төлөвийг шинэчилнэ
+    //   ...TodoList,
+    //   {
+    //     "todo": text,
+    //     "completed": false,
+    //     "userId": 5
+    //   }
+    // ]);
   };
   const editTodo = (text, id) => {
     // төлөв дотроос хэрэглэгчийн засах гэж байгаа өгөгдлийг хайж олоод өгөглийн засна
