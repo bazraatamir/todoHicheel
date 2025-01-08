@@ -35,7 +35,8 @@ const TodoWrapper = () => {
 
   const deleteTodo = () => {};
   return (
-    <div className='flex flex-col rounded-xl gap-[80px] bg-[#000] p-[40px]'>
+    <div className='flex flex-col rounded-xl gap-[80px] bg-[#000] p-[40px]'> 
+    <h1>chage Jack</h1>
       {/* хэрэглэгчээс өгөдөл оруулж ирээд төлөв дээр хадгалж өгөх компонент */}
       <Todofrom saveTodo={AddTodo} />
       <ul>
@@ -47,6 +48,7 @@ const TodoWrapper = () => {
           ) : (
             // бусад өгөгдлүүд item  компонент хэвээр байна
             // пропсоор нь өгөгдөл болон handleEditToggle дамжуулна
+            // hhffhfhffhhf
             <TodoItem data={el} edit={handleEditToggle} />
           )
         )}
