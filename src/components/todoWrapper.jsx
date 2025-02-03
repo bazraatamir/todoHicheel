@@ -5,21 +5,24 @@ import Todofrom from "./todofrom";
 // todo жагсаалт
 const TodoWrapper = () => {
   const [TodoList, setTodoList] = useState([]);
+  const token = localStorage.getItem("token");
+  console.log(token);
   useEffect(() => {
-    fetch("https://dummyjson.com/todos?limit=10")
+    fetch("http://localhost:3000/todo/getAll")
       .then((res) => res.json())
-      .then((data) => setTodoList([...TodoList, ...data.todos]));
+      .then((data) => setTodoList([...TodoList, ...data.Todo]));
   }, []);
-  console.log(TodoList);
+  // console.log(TodoList);
   //  компонентийн төлөвийг шинчлэх зориолго той функц
   const AddTodo = (text) => {
-    fetch("https://dummyjson.com/todos/add", {
+    fetch("http://localhost:3000/todo/createTodo", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
-        todo: text,
-        completed: false,
-        userId: 5,
+        Title: text,
       }),
     })
       .then((res) => res.json())
@@ -53,8 +56,9 @@ const TodoWrapper = () => {
 
   const deleteTodo = () => {};
   return (
-    <div className='flex flex-col rounded-xl gap-[80px] bg-[#000] p-[40px]'> 
-    <h1>chage Jack</h1>
+    <div className='flex flex-col rounded-xl gap-[80px] bg-[#000] p-[40px]'>
+      <h1>chage Jack</h1>
+      <h1>change bazaraa</h1>
       {/* хэрэглэгчээс өгөдөл оруулж ирээд төлөв дээр хадгалж өгөх компонент */}
       <Todofrom saveTodo={AddTodo} />
       <ul>
